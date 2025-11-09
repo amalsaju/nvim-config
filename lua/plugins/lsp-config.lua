@@ -4,7 +4,7 @@ return {
 		opts = {},
 	},
 	{
-"mason-org/mason-lspconfig.nvim",
+		"mason-org/mason-lspconfig.nvim",
 		opts = {
 			ensure_installed = { "lua_ls", "zls", "ts_ls" },
 		},
@@ -13,6 +13,8 @@ return {
 			"neovim/nvim-lspconfig",
 		},
 	},
+ --this plugin is now deprecated in favour of vim.lsp.config
+ --its functionality now is to provide server specific configs in the lsp folder
 	{
 		"neovim/nvim-lspconfig",
 		keys = {

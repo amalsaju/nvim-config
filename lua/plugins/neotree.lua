@@ -8,9 +8,6 @@ return {
 		"MunifTanjim/nui.nvim",
 		"nvim-tree/nvim-web-devicons",
 	},
-	init = function()
-		vim.api.nvim_set_hl(0, "NeoTreeFileNameOpened", { fg = "#ff5555", bold = true })
-	end,
 	lazy = false,
 	opts = {
 		enable_git_status = true,

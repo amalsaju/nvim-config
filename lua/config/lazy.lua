@@ -27,7 +27,7 @@ vim.cmd("set shiftwidth=2")
 vim.opt.relativenumber = true
 vim.opt.signcolumn = "yes"
 vim.keymap.set("n", "<leader>w", "<C-w>", { noremap = true, silent = true, desc = "Window commands" })
-
+vim.g.textwidth = 130
 -- Diagnostic signs for the sign column
 -- Define the icons you want for each diagnostic type
 local diagnostic_icons = {

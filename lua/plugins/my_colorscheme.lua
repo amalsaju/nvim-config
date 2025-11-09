@@ -17,7 +17,7 @@ return {
 						fg_dim = "#C8C093",
 						fg_reverse = "#223249",
 						bg_dim = "#12120f",
-						bg_gutter = "#282727",
+						bg_gutter = "#181616",
 
 						bg_m3 = "#0d0c0c",
 						bg_m2 = "#12120f",
@@ -52,9 +52,6 @@ return {
 				},
 			},
 		},
-		overrides = function(colors) -- add/modify highlights
-			return {}
-		end,
 		theme = "wave",
 		background = {
 			dark = "wave",

@@ -13,36 +13,36 @@ return {
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	config = function()
 		-- Kanagawa Dragon-inspired Lualine theme
-		local kanagawa_dragon = {
+		local kanagawa_dragon_lualine = {
 			normal = {
-				a = { fg = "#1f1f28", bg = "#7dcfff", gui = "bold" },
-				b = { fg = "#c8c093", bg = "#2a2a37" },
-				c = { fg = "#c8c093", bg = "#1f1f28" },
+				a = { fg = "#181616", bg = "#7dcfff", gui = "bold" },
+				b = { fg = "#c8c093", bg = "#282727" },
+				c = { fg = "#c8c093", bg = "#211E1E" },
 			},
 			insert = {
-				a = { fg = "#1f1f28", bg = "#98bb6c", gui = "bold" },
-				b = { fg = "#c8c093", bg = "#2a2a37" },
-				c = { fg = "#c8c093", bg = "#1f1f28" },
+				a = { fg = "#181616", bg = "#98bb6c", gui = "bold" },
+				b = { fg = "#c8c093", bg = "#282727" },
+				c = { fg = "#c8c093", bg = "#211E1E" },
 			},
 			visual = {
-				a = { fg = "#1f1f28", bg = "#ff9e64", gui = "bold" },
-				b = { fg = "#c8c093", bg = "#2a2a37" },
-				c = { fg = "#c8c093", bg = "#1f1f28" },
+				a = { fg = "#181616", bg = "#ff9e64", gui = "bold" },
+				b = { fg = "#c8c093", bg = "#282727" },
+				c = { fg = "#c8c093", bg = "#211E1E" },
 			},
 			replace = {
-				a = { fg = "#1f1f28", bg = "#ff5c57", gui = "bold" },
-				b = { fg = "#c8c093", bg = "#2a2a37" },
-				c = { fg = "#c8c093", bg = "#1f1f28" },
+				a = { fg = "#181616", bg = "#ff5c57", gui = "bold" },
+				b = { fg = "#c8c093", bg = "#282727" },
+				c = { fg = "#c8c093", bg = "#211E1E" },
 			},
 			command = {
-				a = { fg = "#1f1f28", bg = "#b4f9f8", gui = "bold" },
-				b = { fg = "#c8c093", bg = "#2a2a37" },
-				c = { fg = "#c8c093", bg = "#1f1f28" },
+				a = { fg = "#181616", bg = "#b4f9f8", gui = "bold" },
+				b = { fg = "#c8c093", bg = "#282727" },
+				c = { fg = "#c8c093", bg = "#211E1E" },
 			},
 			inactive = {
-				a = { fg = "#c8c093", bg = "#1f1f28" },
-				b = { fg = "#c8c093", bg = "#1f1f28" },
-				c = { fg = "#c8c093", bg = "#1f1f28" },
+				a = { fg = "#c8c093", bg = "#211E1E" },
+				b = { fg = "#c8c093", bg = "#181616" },
+				c = { fg = "#c8c093", bg = "#181616" },
 			},
 		}
 
@@ -60,15 +60,15 @@ return {
 		local function mode_color()
 			local mode = vim.fn.mode()
 			if mode == "i" then
-				return kanagawa_dragon.insert.a.bg
+				return kanagawa_dragon_lualine.insert.a.bg
 			elseif mode == "v" or mode == "V" or mode == "" then
-				return kanagawa_dragon.visual.a.bg
+				return kanagawa_dragon_lualine.visual.a.bg
 			elseif mode == "R" then
-				return kanagawa_dragon.replace.a.bg
+				return kanagawa_dragon_lualine.replace.a.bg
 			elseif mode == "c" then
-				return kanagawa_dragon.command.a.bg
+				return kanagawa_dragon_lualine.command.a.bg
 			else
-				return kanagawa_dragon.normal.a.bg
+				return kanagawa_dragon_lualine.normal.a.bg
 			end
 		end
 
@@ -80,7 +80,7 @@ return {
 		-- Setup Lualine
 		require("lualine").setup({
 			options = {
-				theme = kanagawa_dragon,
+				theme = kanagawa_dragon_lualine,
 				section_separators = { left = "", right = "" },
 				component_separators = { left = "", right = "" },
 				icons_enabled = true,
@@ -89,7 +89,7 @@ return {
 				lualine_a = { "mode" },
 				lualine_b = {
 					{ "branch", icon = "", color = dynamic_color },
-					{ "diff", symbols = { added = " ", modified = "柳", removed = "" }, color = dynamic_color },
+					{ "diff", symbols = { added = " ", modified = " ", removed = "" }, color = dynamic_color },
 					{
 						"diagnostics",
 						sources = { "nvim_diagnostic" },

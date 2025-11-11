@@ -12,7 +12,6 @@ return {
 			{ "mason-org/mason.nvim", opts = {} },
 			"neovim/nvim-lspconfig",
 		},
-		
 	},
 	--this plugin is now deprecated in favour of vim.lsp.config
 	--its functionality now is to provide server specific configs in the lsp folder

@@ -1,7 +1,6 @@
 return {
 	-- File icons
 	{ "nvim-tree/nvim-web-devicons", opts = {} },
-
 	-- Git signs
 	{
 		"lewis6991/gitsigns.nvim",

@@ -27,25 +27,71 @@ vim.cmd("set shiftwidth=2")
 vim.opt.relativenumber = true
 vim.opt.signcolumn = "yes"
 vim.keymap.set("n", "<leader>w", "<C-w>", { noremap = true, silent = true, desc = "Window commands" })
-vim.g.textwidth = 130
+
+-- Wrapping stuff
+vim.opt.textwidth = 80
+vim.opt.wrap = true
+vim.opt.linebreak = true -- wrap at word boundaries
+vim.opt.breakindent = true -- keep indentation
+
 vim.opt.termguicolors = true
 vim.env.TERM = "xterm-256color"
+vim.keymap.set({ "n", "x", "o" }, "0", "^", { noremap = true })
+vim.keymap.set({ "n", "x", "o" }, "^", "0", { noremap = true })
 
--- Terminal Stuff here
-vim.keymap.set("t", "<esc><esc>", "<C-\\><C-n>")
-vim.api.nvim_create_autocmd("TermOpen", {
-	group = vim.api.nvim_create_augroup("customer-term-open", { clear = true }),
+-- Insert mode, toggle comment on current line
+vim.keymap.set("n", "<C-_>", function()
+	require("Comment.api").toggle.linewise.current()
+end, { noremap = true, silent = true })
+
+-- Visual mode: toggle comment for selected lines
+vim.keymap.set("v", "<C-_>", function()
+	-- Exit visual mode first, then apply toggle
+	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<ESC>", true, false, true), "nx", false)
+	require("Comment.api").toggle.linewise(vim.fn.visualmode())
+end, { noremap = true, silent = true })
+vim.opt.ignorecase = true -- search ignores case
+vim.opt.smartcase = true -- but becomes case-sensitive if you type a capital
+vim.keymap.set("n", "<leader>q", "<C-w>q", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>lx", function()
+	vim.cmd("write")
+	vim.cmd("luafile " .. vim.fn.expand("%"))
+end)
+
+-- Set foldmethod=indent for programming languages
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = {
+		"python",
+		"typescriptreact",
+		"javascriptreact",
+		"lua",
+		"javascript",
+		"typescript",
+		"cpp",
+		"java",
+		"go",
+		"ruby",
+		"rust",
+		"html",
+		"css",
+		"php",
+	},
 	callback = function()
-		vim.opt.number = false
-		vim.opt.relativenumber = false
+		vim.opt_local.foldmethod = "indent"
+		vim.opt_local.foldenable = true -- Enable folding by default for these filetypes
 	end,
 })
 
-vim.keymap.set("n", "<leader>st", function()
-  vim.cmd.term()
-	vim.cmd.wincmd("J")
-	vim.api.nvim_win_set_height(0, 10)
-end)
+-- For other filetypes (e.g., neo-tree, help, markdown), disable folding
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "neo-tree", "help", "TelescopePrompt", "markdown", "txt" },
+	callback = function()
+		vim.opt_local.foldmethod = "manual"
+		vim.opt_local.foldenable = false
+	end,
+})
+
+-- Terminal Stuff here
 
 -- Diagnostic signs for the sign column
 -- Define the icons you want for each diagnostic type
@@ -58,17 +104,19 @@ local diagnostic_icons = {
 
 vim.diagnostic.config({
 	signs = {
-		-- Set the sign text table
 		text = diagnostic_icons,
-		-- You can also optionally set numhl or linehl
-		-- numhl = {
-		--   [vim.diagnostic.severity.WARN] = "DiagnosticLineWarnNumber"
-		-- },
 	},
-	virtual_text = true,
+	float = {
+		wrap = true,
+		max_width = 80,
+	},
+	virtual_text = false,
 	underline = true,
 	severity_sort = true,
 })
+vim.keymap.set("n", "<leader>dn", function()
+  vim.diagnostic.open_float({ scope = "line" })
+end)
 -- Default options:
 
 -- Setup lazy.nvim
@@ -79,3 +127,8 @@ require("lazy").setup({
 })
 
 vim.cmd.colorscheme("kanagawa")
+vim.opt.cursorline = true
+vim.api.nvim_set_hl(0, "IblIndent", { fg = "#010101" })
+vim.api.nvim_set_hl(0, "IblScope", { fg = "#010101" })
+vim.api.nvim_set_hl(0, "CursorLine", { bg = "#0d0c0c" })
+
